@@ -4,4 +4,4 @@ It consists of 3 modules:
 * sakyr
 * sakisbak
 
-Each module describes the life of sak in sakcy way.
+Each module describes the life of sak in a sakcy way.
