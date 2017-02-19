@@ -1,0 +1,33 @@
+<div class='modal-section-header'>Account Login</div>
+<form id='login-form' class='floatLT' method='POST' autocomplete="on">
+	<div class='modal-section-content floatLT centered'>
+		{{#if ctrl.processing}}
+			<div class='login-modal-loader floatLT'>
+				Sending password reset instructions...
+			</div>
+		{{else}}
+			<ul class='form-list login-list noStyle noMargin floatLT'>
+				<li class='form-item floatLT login-item'>
+					<div class='input-label floatLT'>Email</div>
+					<div class='input floatLT'>{{input type="text" value=ctrl.emailLogin placeholder="Registered Email" classNames="inputemailLogin floatLT" name='email'}}</div>
+				</li>
+				<li class='form-item floatLT login-item'>
+					<div class='input-label floatLT'>Password</div>
+					<div class='input floatLT'>{{input type="password" value=ctrl.passwordLogin placeholder="Password" classNames="inputpasswordLogin floatLT" name='password'}}</div>
+				</li>
+				<li class='form-item floatLT login-item'>
+					<a id='forgot-password-btn' class='buttonhover' {{action 'forgotpassword' target=ctrl}}>Forgot your password ?</a>
+				</li>
+				<li class='form-item floatLT form-button'>
+					<input id='login-modal-login-button' type="submit" value="Log In" {{action 'login' target=ctrl}}/>
+				</li>
+				<li class='form-item floatLT form-button'>
+					<input type='button' value="Facebook Login" {{action 'facebooklogin' target=ctrl}}/>
+				</li>
+				<li class='form-item floatLT form-button'>
+					<div id="my-signin2"></div>
+				</li>
+			</ul>
+		{{/if}}
+	</div>
+</form>

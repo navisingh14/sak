@@ -1,0 +1,49 @@
+desc 'Check if we have required permissions'
+task :check_permissions do
+	on roles(:all) do |host|
+		if test("[ -w #{fetch(:user_home)} ]")
+			info "#{fetch(:user_home)} is writable on #{host}"
+			execute "mkdir -p #{fetch(:deploy_to)}"
+		else
+			error "#{fetch(:deploy_to)} is not writable on #{host}"
+		end
+	end
+end
+
+
+desc 'Install required programs like git, dbms and ruby'
+task :prepare_env do
+	on roles(:all) do |host|
+	execute 'sudo apt-get update'
+	execute "sudo apt-get -y install build-essential libxslt-dev libxml2-dev"
+	execute "sudo apt-get -y install libxmlsec1-dev libcurl4-openssl-dev"
+	execute 'sudo apt-get -y install git'
+	execute 'sudo apt-get -y install postgresql-server-dev-9.1'
+	execute 'sudo apt-get -y install postgresql-9.1'
+	execute 'sudo apt-get -y install curl'
+	execute '\\curl -L https://get.rvm.io | bash -s stable'
+	# sourcing .bash_profile each time to load rvm as function in shell
+	execute "#{fetch(:source_profile)} && rvm install #{fetch(:ruby_version)}"
+	execute "#{fetch(:source_profile)} && rvm use --default #{fetch(:ruby_version)}"
+	execute "#{fetch(:source_profile)} && gem update --system 1.8.11"
+	end
+end
+
+task :install_nodejs do
+	on roles(:all) do |host|
+		script = <<-command
+			cd ~
+			wget http://nodejs.org/dist/v0.10.21/node-v0.10.21.tar.gz
+			tar zxvf node-v0.10.21.tar.gz
+			cd node-v0.10.21
+			./configure
+			make
+			sudo make install
+		command
+		begin
+		  execute 'npm -v'
+		rescue
+		  execute script
+		end
+	end
+end

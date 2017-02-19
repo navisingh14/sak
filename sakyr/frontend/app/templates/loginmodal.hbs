@@ -1,0 +1,10 @@
+{{#unless this.session.user}}
+	<div class="fade in">
+		<div class='login-view floatLT'>{{log-in ctrl=this}}</div>
+		<div class='divider'></div>
+		<div class='signup-view floatRT'>{{sign-up ctrl=this}}</div>
+	</div>
+{{/unless}}
+<div class='modal-footer noPadding'>
+	{{partial 'alert'}}
+</div>

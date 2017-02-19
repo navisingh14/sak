@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FrontendUpgrade</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="adfadfadsfi34/sdfadfadf=" name="csrf-token">
+    <!-- Google Plus Javascript API Async Load Start -->
+    <meta name="google-signin-client_id" content="766074953374-8tp00okjcdkpvvl4158u0mu739ps7b6l.apps.googleusercontent.com">
+    <script type="text/javascript">
+      render = function(){
+        //use this flag before sending acccessing gapi.
+        window.gapiLoaded = true
+      };
+      (function() {
+        var po = document.createElement('script');
+        po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+    <!-- Google Plus Javascript API Load End -->
+    <!-- Facebook Javascript API Async Load Start -->
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+      window.fbAsyncInit = function(){
+        //use this flag before sending acccessing FB object in application.
+        window.fbLoaded = true;
+      };
+      (function() {
+        var e = document.createElement('script'); e.async = true;
+        e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+      }());
+    </script>
+    <!-- Facebook Javascript API Load End -->
+
+
+    {{content-for "head"}}
+
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/frontend-upgrade.css">
+
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/frontend-upgrade.js"></script>
+
+    {{content-for "body-footer"}}
+  </body>
+</html>

@@ -1,0 +1,15 @@
+#####################################################################
+# Copyright (C) 2014 Navyug Infosolutions Pvt Ltd.
+# Written By : Ravi Teja
+# Email : ravi.teja@navyuginfo.com
+# Created Date : 30-Nov-2014
+#####################################################################
+
+## This monitors the app servers and their service status. If not running it can be restarted by monit.
+
+## This is an example on how to monitor a process with a pid file. This can be thin pids as well. We can monitor as many pids as we want to
+## Monitoring the Gitlab Service Running on the Machine. If the Servive is not running will send out an email
+#check process gitlab-service with pidfile /home/git/gitlab/tmp/pids/unicorn.pid
+#      if cpu > 70%  then alert
+#      if memory > 2048 MB then alert
+

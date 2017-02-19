@@ -1,0 +1,76 @@
+#user-name-top {
+	color: #333333;
+	font-weight: bold;
+	font-size: 12px;
+	font-size: 0.750rem;
+	margin-right: 10px;
+}
+
+#loginModal {
+	width: 60%;
+	margin-left: -30%;
+	.changepasswrdbutton{
+		text-align: center;
+	}
+	.modal-header {
+		height: 20px;
+		padding: 5px 10px 5px 0px;
+		border-bottom: 0px;
+	}
+	.alert {
+		transition: width ease 0.8s;
+		margin-top: 13px;
+		text-align: center;
+	}
+	.modal-footer {
+		float: left;
+		height: 50px;
+		font-size: 14px;
+		font-weight: 600;
+		width: 100%;
+		border: 0px;
+		background-color: white;
+		box-shadow: none;
+	}
+	.modal-body {
+		padding-left: 0px;
+		padding-right: 0px;
+		overflow-y:hidden !important;
+		input{
+			font-size:12px;
+		}
+	}
+	.login-view {
+		width: 49%;
+	}
+	.divider {
+		position: absolute;
+		top: 0px;
+		left: 50%;
+		border-left: 2px solid #AAAAAA;
+		min-height: 300px;
+		margin-top: 30px;
+		margin-bottom: 15px;
+	}
+	.signup-view {
+		width: 49%;
+		position: absolute;
+		left: 52%;
+	}
+	.modal-section-header {
+		//color: #737373;
+		font-family: Arial;
+		font-size: 26px;
+		font-weight: normal;
+		font-style: normal;
+		text-align: center;
+	}
+	.modal-section-content {
+		width: 100%;
+		padding-top: 25px;
+	}
+	#modal-close {
+		font-size: 24px;
+		font-weight: 700;
+	}
+}

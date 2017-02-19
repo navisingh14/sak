@@ -1,0 +1,15 @@
+#####################################################################
+# Copyright (C) 2014 Navyug Infosolutions Pvt Ltd.
+# Written By : Ravi Teja
+# Email : ravi.teja@navyuginfo.com
+# Created Date : 30-Nov-2014
+#####################################################################
+
+## This monit file is for Monitoring the filesystem usage and diskspace available on the disk.  
+
+# Watch the file system and alert if the disk usage is > 55% of the given partition
+
+## Change your disk path properly so that it will be monitored.
+check filesystem MyMainDisk with path /dev/sda1
+      if space usage > 60% then alert
+

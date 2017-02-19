@@ -1,0 +1,175 @@
+namespace :tasks do
+
+	# if the config exists, use that else upload the new config files from local machine
+	task :upload_config do
+		on roles(:all) do
+			execute "mkdir -p #{shared_path}/config/#{fetch(:application)}"
+			config_files = %w(database)
+			config_files.each do |config_file|
+				upload! "../backend/config/#{config_file}.yml", "#{shared_path}/config/#{fetch(:application)}/#{config_file}.yml"
+			end
+		end
+	end
+
+	task :set_config do
+		begin
+			on roles(:all) do
+				config_files = %w(database)
+				config_files.each do |config_file|
+					execute "cp #{shared_path}/config/#{fetch(:application)}/#{config_file}.yml #{fetch :backend_dir}/config/#{config_file}.yml"
+				end
+			end
+		rescue
+			invoke 'tasks:upload_config'
+			retry
+		end
+	end
+
+	task :bundle_install do
+		on roles(:all) do
+			script = <<-command
+				cd #{fetch :backend_dir}
+				#{fetch(:source_profile)}
+				bundle install
+			command
+			execute script
+		end
+	end
+
+	task :compile_assets do
+		on roles(:all) do
+			script = <<-command
+				cd #{fetch :backend_dir}
+				#{fetch :source_profile}
+				RAILS_ENV=production bundle exec rake assets:precompile
+			command
+			execute script
+		end
+	end
+
+	desc 'Start the application server'
+	task :thin_start do
+		on roles(:all) do
+			script = <<-command
+				cd #{fetch :backend_dir}
+				#{fetch(:source_profile)}
+				bundle exec thin start --ssl -d
+			command
+			execute script
+		end
+	end
+
+	task :thin_stop do
+		on roles(:all) do
+			begin
+				script = <<-command
+					cd #{fetch :backend_dir}
+					#{fetch(:source_profile)}
+					bundle exec thin stop
+				command
+				execute script
+			rescue
+				info 'Server was not running!'
+			end
+		end
+	end
+
+	desc 'Restart the application server'
+	task :thin_restart do
+		invoke 'tasks:thin_stop'
+		invoke 'tasks:thin_start'
+		on roles(:all) do
+			info 'Restarted Thin.. Wait for the servers to be up'
+		end
+	end
+
+	task :npm_install do
+		on roles(:all) do |host|
+			begin
+				execute 'brunch -V'
+			rescue
+				execute 'sudo npm install brunch -g'
+			end
+			script = <<-command
+				#{fetch(:source_profile)}
+				cd #{deploy_to}/current/frontend
+				[ -d ~/tmp ] && sudo rm -r #{fetch(:user_home)}/tmp
+				npm install
+			command
+			execute script
+		end
+	end
+	before :npm_install, :install_nodejs
+
+	task :brunch_build do
+	on roles(:all) do
+		script = <<-command
+			#{fetch(:source_profile)}
+			cd #{deploy_to}/current/frontend
+			brunch build -e rails_dev
+		command
+		execute script
+	end
+	end
+	before :brunch_build, :npm_install
+
+	task :db_migrate do
+		on roles(:all) do
+			execute "cd #{deploy_to}/current/backend && source #{fetch(:user_home)}/.bash_profile && RAILS_ENV=production rake db:migrate "
+		end
+	end
+
+	desc 'initial app db setup'
+	task :db_setup do
+		invoke 'tasks:set_config'
+		on roles(:all) do
+			script = <<-command
+				#{fetch(:source_profile)}
+				cd #{fetch :backend_dir}
+				bundle exec rake db:create db:migrate db:seed
+			command
+			execute script
+		end
+	end
+
+	desc "Backup of database to shared_path/db-backups-automated"
+	task :db_dump do
+		Rake::Task['db:dump'].invoke("#{fetch(:backend_dir)}/config/database.yml")
+	end
+
+	# Need to ask user for filename to restore to..
+	# (This lists all dump files present on the server to choose from)
+	task :dump_list do
+		on roles(:all), :only => {:primary => true} do
+			execute "cd #{shared_path}/db-backups-automated && ls"
+		end
+	end
+
+	# After Checking in dump_list, supply the filename as argument in following way:
+	#cap STAGE_NAME db:dump_list ---> Lists all the dump files.
+	#cap STAGE_NAME db:rollback[filename] ---> restores the DB to the filename supplied.
+	task :rollback, :dump_name do |task, args|
+		Rake::Task['db:rollback'].invoke("#{shared_path}/config/#{fetch(:application)}/database.yml", "#{args[:dump_name]}")
+		invoke 'tasks:db_migrate'
+	end
+
+	task :start_cron_dbbackup do
+		on roles(:all) do
+			script = <<-command
+				cd #{deploy_to}/current/deployment
+				crontab cron.txt
+			command
+			execute script
+		end
+	end
+
+	before :rollback, :db_dump
+	before :db_dump, :set_config
+
+	before :thin_start, :set_config
+	before :thin_start, :db_migrate
+	before :thin_start, :brunch_build
+	before :thin_start, :compile_assets
+	before :db_migrate, :bundle_install
+
+end

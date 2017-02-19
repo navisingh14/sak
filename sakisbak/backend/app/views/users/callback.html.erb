@@ -1,0 +1,10 @@
+<script>
+	app = window.opener.App;
+	con = app.__container__.lookup('controller:loginmodal');
+
+	status = "<%= @user ? "success" : "error" %>";
+
+	con.linkedinLoginComplete(status);
+	window.close() ;
+
+</script>

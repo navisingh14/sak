@@ -1,0 +1,23 @@
+<% if !@user %>
+	please enter email address to continue
+	<%= form_tag '/auth/twitter/email_twitter_callback' do %>
+
+		<%= label_tag :email %>
+		<%= text_field_tag :email, params[:email] %>
+
+		<%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
+	<% end %>
+<% end %>
+
+<script>
+	app = window.opener.App;
+	con = app.__container__.lookup('controller:loginmodal');
+
+	status = "<%= @oauth_error ? 'error' : (@user ? "success" : "") %>";
+
+	if(status != ""){
+		con.twitterLoginComplete(status);
+		window.close() ;
+	}
+
+</script>

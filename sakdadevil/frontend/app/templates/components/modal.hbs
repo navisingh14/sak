@@ -1,0 +1,5 @@
+<div class="backdrop"><!-- modal backdrop --></div>
+<div id='alert-content-wrapper' {{bind-attr class=':modal'}}>
+	<span class='close'><a {{action "closeModal"}}>X</a></span>
+  {{outlet}}
+</div>

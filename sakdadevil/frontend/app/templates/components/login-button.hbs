@@ -1,0 +1,11 @@
+{{! TODO change this to check for currentUser because login nd register should show up when currentUser is not set}}
+
+<div class="login-text">
+	{{#if this.session.user}}
+		<span id='user-name-top'>
+			Hello, {{this.session.user.firstname}} {{this.session.user.lastname}}
+		</span>
+		<a id='change-password-button' class='buttonhover' {{action 'changePasswd' target=ctrl}} >Change password | </a>
+		<a id='logoutbutton' class='buttonhover' {{action 'logout' target=ctrl}}>Logout</a>
+	{{/if}}
+</div>

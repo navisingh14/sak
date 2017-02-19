@@ -1,0 +1,65 @@
+namespace :db do
+
+	task :dump, :config_file do |task, args|
+		on roles(:all), :only => {:primary => true}, :pty=> true do
+			db_yml = capture("cat #{args[:config_file]}")
+			db_config = YAML.load(db_yml)["production"]
+			dbuser = db_config['username']
+			dbpass = db_config['password']
+			environment_database = db_config['database']
+			dbhost = db_config['host']
+
+			now = Time.now
+			backup_time = [now.year,now.month,now.day,now.hour,now.min,now.sec].join('-')
+			backup_file = "#{shared_path}/db-backups-automated/#{environment_database}-snapshot-#{backup_time}.sql"
+			execute "mkdir -p #{shared_path}/db-backups-automated"
+			begin
+				execute "export PGPASSWORD='#{dbpass}'\npg_dump -U #{dbuser} -h #{dbhost} #{environment_database} > #{backup_file}"
+			rescue
+				info 'Could Not Dump Database'
+			end
+		end
+	end
+
+	# After Checking in dump_list, supply the filename as argument in following way:
+	#cap STAGE_NAME db:dump_list ---> Lists all the dump files.
+	#cap STAGE_NAME db:rollback[filename] ---> restores the DB to the filename supplied.
+	task :rollback, :config_file, :dump_name do |task, args|
+		on roles(:all) do
+			db_yml = capture("cat #{args[:config_file]}")
+			dump_file_name = "#{args[:dump_name]}"
+			info "restoring from dumpfile => #{dump_file_name}"
+			db_config = YAML.load(db_yml)["production"]
+			dbuser = db_config['username']
+			dbpass = db_config['password']
+			environment_database = db_config['database']
+			dbhost = db_config['host']
+			execute "export PGPASSWORD='#{dbpass}'\n dropdb -U #{dbuser} -h #{dbhost} #{environment_database}"
+			execute "export PGPASSWORD='#{dbpass}'\n createdb -U #{dbuser} -h #{dbhost} #{environment_database}"
+			info "Rolling Back to #{args[:dump_name]}"
+			execute "export PGPASSWORD='#{dbpass}'\npsql -U #{dbuser} -h #{dbhost} -d #{environment_database} -f #{shared_path}/db-backups-automated/#{args[:dump_name]}"
+		end
+	end
+
+	desc 'create a database user'
+	task :setup_dbms do
+		on roles(:all) do
+			db_yml = capture("cat #{shared_path}/config/#{fetch(:application)}/database.yml")
+			db_config = YAML.load(db_yml)
+			db_config = db_config["production"]
+			dbuser = db_config['username']
+			dbpass = db_config['password']
+			env_db = db_config['database']
+
+			begin
+				execute("psql -U #{dbuser} -d #{env_db}")
+			rescue
+				command = <<-scr
+				  sudo -u postgres psql -c "create user #{dbuser} with nosuperuser nocreaterole createdb password '#{dbpass}'"
+				scr
+				execute(command) rescue nil
+			end
+		end
+	end
+	before :setup_dbms, 'tasks:set_config'
+end

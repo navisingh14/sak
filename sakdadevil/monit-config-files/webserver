@@ -1,0 +1,32 @@
+#####################################################################
+# Copyright (C) 2014 Navyug Infosolutions Pvt Ltd.
+# Written By : Ravi Teja
+# Email : ravi.teja@navyuginfo.com
+# Created Date : 30-Nov-2014
+#####################################################################
+
+
+# This file holds the configurations for different wenservers status like nginx apache and their response content.
+
+
+
+# Checking the webserver response on http port if response is not 200 and dont have a specific content on the page
+check host myapp-web-access with address www.myapp.com
+      if failed
+	port 80 protocol http
+      then alert
+
+# Nginx Status Goes here
+# Checks the nginx pid file and monitors the process associated with it, if the process is not running it will restart the process on its own
+# Monitors the CPU usage by the Program and Memory Usage and sends alerts accordingly
+check process nginx with pidfile /var/run/nginx.pid
+      start program = "/etc/init.d/nginx start"
+      stop  program = "/etc/init.d/nginx stop"
+      restart program = "/etc/init.d/nginx restart"
+      if cpu > 70%  then alert
+      if memory > 500 MB then alert
+
+
+
+# Apache Status Goes here if you want to monitor apache (ToDO)
+

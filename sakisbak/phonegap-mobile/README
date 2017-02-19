@@ -1,0 +1,5 @@
+Changes to be made before running:
+
+1. create local.properties in platforms/android/ folder and copy-paste the content of sample_local.properties.
+2. run navigator.splashscreen.hide() in applicaiton didinsert view.
+3. Always comment the line of winere debugger script in index.html before making production build.

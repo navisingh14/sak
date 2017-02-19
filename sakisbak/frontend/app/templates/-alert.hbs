@@ -1,0 +1,6 @@
+{{#if showAlert}}
+	<div class="alert" id="alertBox">
+		<button type="button" class="close" {{action 'hideAlert'}}>&times;</button>
+		{{alertMessage}}
+	</div>
+{{/if}}

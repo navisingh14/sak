@@ -1,0 +1,317 @@
+.footer{
+  clear: both;
+}
+
+.login-view {
+  width: 49%;
+}
+
+.signup-view {
+  width: 49%;
+  position: absolute;
+  left: 52%;
+}
+
+.divider {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  border-left: 2px solid #AAAAAA;
+  min-height: 300px;
+  margin-top: 30px;
+  margin-bottom: 15px; }
+
+.centered{
+  margin:0 auto;
+  text-align:center;
+}
+
+
+.floatRT{
+  float:right
+}
+
+.floatLT{
+  float:left
+}
+
+.buttonhover{                 /* use on any element to change mouse pointer on that to hand*/
+  cursor: hand;
+  cursor: pointer;
+}
+
+.disabled{
+  background-color:#A9A9A9  !important;
+  color:#f5f5f5 !important;
+}
+
+.scale {
+  transition: all .6s ease;
+}
+
+
+.rtCorners{
+  border-radius:0px !important;
+}
+
+.ch-btn {
+
+  a{
+    color:white;
+  }
+
+  &:active{
+    color: #FFF;
+    text-decoration: none;
+  }
+  &:hover, &:focus {
+    text-decoration: none;
+    color: #fff;
+    background: #6185ca;
+    outline-color: #fec32b;
+  }
+	position:relative;
+  font-weight: bold;
+  padding: 4px 25px 5px;
+  width: auto;
+  color: #fff;
+  border: none;
+	border-radius:3px;
+  text-transform: capitalize;
+  text-align: center;
+  background: #345ca8;
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+.noStyle{
+  list-style-type: none !important;
+}
+
+.noPadding{
+  padding: 0 !important;
+}
+
+.noMargin {
+  margin : 0 !important;
+}
+
+
+.noBtnStyle{
+
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+.linkedIn{
+  background: url(/img/sprite-social.png) no-repeat -9px -7px;
+}
+
+.twitter{
+  background:url(/img/sprite-social.png) no-repeat -45px -7px;
+}
+
+.facebook{
+  background: url(/img/sprite-social.png) no-repeat -83px -7px;
+}
+
+.gplus{
+  background:url(/img/sprite-social.png) no-repeat -121px -7px;
+}
+
+.ch-activeBtn{
+	background: url(/img/slidepagination.png) 0 -14px no-repeat;
+}
+
+.ch-inactiveBtn{
+	background: url(/img/slidepagination.png) no-repeat 0 0;
+}
+
+
+.selectpicker:focus{
+  outline: 5px auto rgba(82, 168, 236, 0.8);
+}
+
+.ember-checkbox{
+  width:16px !important;
+  height:16px !important;
+  margin:0 !important;
+}
+
+
+.mar5{
+  padding:4px 20px 5px;
+  margin-left:10px;
+  margin-top:10px;
+  font-size:14px !important;
+}
+
+.pad5{
+  padding:0px 5px;
+}
+
+.noBorder{
+  border:0 solid;
+}
+.block{
+  width:100%;
+}
+
+.tabbed{
+  li{
+    &:hover,&:focus,&:active,&.active{
+      a{
+        background:#fec32b !important;
+        color:black
+      }
+    }
+  }
+
+
+}
+
+
+
+.small-map{
+  margin-bottom: 10px;
+  height:180px;
+}
+
+.all-width{
+  width:100% !important;
+}
+
+.width240{
+  width:240px;
+}
+
+.gmnoprint{
+  div{
+    div{
+      img{
+        max-width:none !important;
+      }
+    }
+  }
+}
+
+
+img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
+  max-width: none;
+}
+
+a:hover{                                  //removing underlines on hovering of a elements
+	text-decoration: none;
+}
+
+.smallText{
+	font-size:12px;
+}
+
+
+
+.issSmall{
+  font-size:0.9em;
+}
+
+.normalWeight{
+  font-weight:normal
+}
+.raty{
+	margin:0px auto;
+}
+.sub-text{
+	font-size:12px;
+}
+
+.no-data-message{
+	margin-top:30px;
+	color:grey;
+	font-size:13px;
+	text-align: center;
+	width:100%;
+}
+
+.marTop10{
+  margin-top:10px;
+}
+
+.font12{
+  font-size:12px;
+}
+.capitalized-text{
+	text-transform: capitalize;
+}
+
+
+.carousel-indicators{
+  z-index:1 !important;
+}
+
+.changepasswrdbutton{
+  text-align: center;
+}
+.modal-header {
+  height: 20px;
+  padding: 5px 10px 5px 0px;
+  border-bottom: 0px;
+}
+.alert {
+  transition: width ease 0.8s;
+  margin-top: 13px;
+  text-align: center;
+}
+.modal-footer {
+  float: left;
+  height: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  border: 0px;
+  background-color: white;
+  box-shadow: none;
+}
+.modal-body {
+  padding-left: 0px;
+  padding-right: 0px;
+  overflow-y:hidden !important;
+  input{
+    font-size:12px;
+  }
+}
+
+.modal-section-header {
+  //color: #737373;
+  font-family: Arial;
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  text-align: center;
+}
+.modal-section-content {
+  width: 100%;
+  padding-top: 25px;
+}
+#modal-close {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.input-label {
+  font-size: 11px;
+  margin-top: 5px;
+  width: 30%;
+  margin-right: 5%;
+  text-align: right;
+}
+.input {
+  width: 65%;
+  input {
+    width: 90%;
+  }
+}
+.login-list {
+	padding-top: 45px;
+}

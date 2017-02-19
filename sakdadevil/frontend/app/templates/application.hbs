@@ -1,0 +1,18 @@
+<div id="wrapper">
+	<header id='header'>
+		{{partial 'header'}}
+	</header>
+
+	<main id="main-section" class="cf">
+		<div class="container">
+			{{outlet}}
+		</div>
+		<div id="modal-wrapper">
+			{{outlet 'modal'}}
+		</div>
+	</main>
+
+	<footer id="footer">
+		{{partial 'footer'}}
+	</footer>
+</div>

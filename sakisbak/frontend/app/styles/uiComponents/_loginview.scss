@@ -1,0 +1,88 @@
+.form-list {
+	width: 90%;
+	padding-left: 3%;
+	padding-right: 7%;
+	.form-button {
+		width: 100%;
+		.signupbutton {
+			width: 60%;
+			margin-left: 20%;
+			margin-top: 4px !important;
+		}
+		.loginbutton {
+			width: 40%;
+			margin-left: 30%;
+		}
+	}
+	.form-item {
+		width: 100%;
+		.ch-btn {
+			margin-top: 10px;
+		}
+		.input-label {
+			font-size: 11px;
+			margin-top: 5px;
+			width: 30%;
+			margin-right: 5%;
+			text-align: right;
+		}
+		.input {
+			width: 65%;
+			input {
+				width: 90%;
+			}
+		}
+		.checkbox-container {
+			width: 100%;
+		}
+		.checkbox-text {
+			margin-top: 1px;
+			margin-left: 2px;
+			font-size: 11px;
+			text-align: center;
+			width: 100%;
+		}
+	}
+	.login-item {
+		padding-right: 10%;
+		width: 90%;
+		.input-label {
+			width: 20%;
+		}
+		.input {
+			width: 75%;
+		}
+		#forgot-password-btn {
+			background: none;
+			border: none;
+			font-size: 11px;
+			font-weight: 700;
+			text-decoration: none;
+			color:#000000;
+		}
+	}
+	.ORtext {
+		font-size: 20px;
+		font-weight: 600;
+		margin-top: 15px;
+		color: #737373;
+		margin-bottom: 10px;
+		width: 100%;
+	}
+}
+
+.links-list-login {
+	padding-left: 23%;
+	width: 100%;
+	a {
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+
+.login-list {
+	padding-top: 45px;
+}

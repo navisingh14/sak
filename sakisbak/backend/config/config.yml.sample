@@ -1,0 +1,34 @@
+# this file should have indent of 2 spaces
+
+# general/default configuration
+defaults: &defaults
+  host:
+    url: 'boilerplate.navyuginfo.com'
+  mailer:
+    enable_starttls_auto: true
+    address: 'smtp.gmail.com'
+    port: '587'
+    authentication: 'plain'
+    username: 'lcms.navyug@gmail.com'
+    password: 'new life'
+    recipient: 'ranu.singh@navyuginfo.com'
+
+# Environment Specific Configuration
+development:
+  <<: *defaults
+  host:
+    url: 'localhost'
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  mailer:
+    enable_starttls_auto: true
+    address: 'smtp.mandrillapp.com'
+    port: '587'
+    authentication: 'plain'
+    username: 'hardik.patel@navyuginfo.com'
+    password: 'xI9woDVsdEPoD9Mx4JmuBA'
+    recipient: 'info@navyuginfo.com'

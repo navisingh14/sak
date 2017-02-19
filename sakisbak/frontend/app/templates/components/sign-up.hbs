@@ -1,0 +1,36 @@
+<div class='modal-section-header'>Account Signup</div>
+<div class='modal-section-content'>
+	<form id='sign-up-form' class='floatLT' method='POST' autocomplete="on">
+		<ul class='form-list noStyle noMargin floatLT'>
+			<li class='form-item floatLT'>
+				<div class='input-label floatLT'>First Name*</div>
+				<div class='input floatLT'>{{input type="text" value=ctrl.firstname placeholder="First Name" classNames="inputfirstname floatLT" name='firstname'}}</div>
+			</li>
+			<li class='form-item floatLT'>
+				<div class='input-label floatLT'>Last Name*</div>
+				<div class='input floatLT'>{{input type="text" value=ctrl.lastname placeholder="Last Name" classNames="inputlastname floatLT" name='lastname'}}</div>
+			</li>
+			<li class='form-item floatLT'>
+				<div class='input-label floatLT'>Email*</div>
+				<div class='input floatLT'>{{input type="text" value=ctrl.email placeholder="Email" classNames="inputemail floatLT" name='email'}}</div>
+			</li>
+			<li class='form-item floatLT'>
+				<div class='input-label floatLT'>Password*</div>
+				<div class='input floatLT'>{{input type="password" value=ctrl.password placeholder="Password (minimum 8 characters)" classNames="inputpassword floatLT" name='password'}}</div>
+			</li>
+			<li class='form-item floatLT'>
+				<div class='input-label floatLT'>Confirm Password*</div>
+				<div class='input floatLT'>{{input type="password" value=ctrl.passwordCnfrm placeholder="Confirm Password" classNames="inputpasswordCnfrm floatLT" name='confirmPassword'}}</div>
+			</li>
+			<li class='form-item floatLT'>
+				<div class='checkbox-container floatLT'>
+					<div class='floatLT checkbox-text'>{{input type='checkbox' checked=ctrl.hasAcceptedTerms classNames="checkbox-signup"}} I agree to the <a href="/termsandconditions" target='_blank'>Terms and Conditions</a>*</div>
+				</div>
+			</li>
+			<li class='form-item form-button floatLT'>
+				<input type="submit" value="Create An Account" id='signup-submit' {{bind-attr class="view.signupButtonClass"}} {{action 'signup' target=ctrl}}/>
+			</li>
+		</ul>
+	</form>
+
+</div>
